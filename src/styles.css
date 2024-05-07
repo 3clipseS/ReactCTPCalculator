@@ -1,0 +1,285 @@
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 1px;
+}
+
+body {
+  background-color: rgb(255, 196, 255);
+}
+
+input {
+  width: 175px;
+  height: 25px;
+  border-radius: 0px;
+  background-color: white;
+  border: solid 1px rgb(94, 94, 94);
+  text-indent: 5px;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 25px;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(250, 250, 250);
+  padding: 20px;
+  border-radius: 25px;
+  height: fit-content;
+  row-gap: 20px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 15px;
+  row-gap: 10px;
+}
+
+header h1 {
+  font-weight: bolder;
+  color: rgb(86, 86, 255);
+}
+
+header h2 {
+  font-size: 1.3rem;
+  color: rgb(158, 158, 255);
+  font-style: italic;
+}
+
+.equipment-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  padding: 20px;
+  border: solid 3px rgb(238, 238, 238);
+  background-color: rgb(255, 255, 255);
+  border-radius: 40px;
+  width: 90%;
+}
+
+.equipment-section {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.equipment-section label {
+  color: rgb(0, 0, 0);
+  font-size: 1.2rem;
+}
+
+.equipment-section select {
+  border: none;
+  padding: 8px 12px;
+  border: solid 2px rgb(27, 185, 54);
+  background-color: rgb(240, 240, 240);
+  color: rgb(31, 143, 50);
+  box-shadow: -1px 3px 2px rgba(0, 0, 0, 0.178);
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.equipment-section select:focus {
+  border: 2px solid black;
+}
+
+.cequipment-form {
+  padding: 5px;
+  display: flex;
+  column-gap: 25px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.cequipment-form button {
+  height: fit-content;
+  width: fit-content;
+  padding: 8px 12px;
+  background: linear-gradient(
+    90deg,
+    rgb(33, 137, 255) 0%,
+    rgb(59, 42, 214) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.cequipment-form button:hover {
+  background: transparent;
+  background-color: black;
+  color: white;
+  translate: 5px;
+  cursor: pointer;
+}
+
+.payinput-wrapper {
+  display: flex;
+  column-gap: 15px;
+}
+
+.payinput-wrapper button {
+  padding: 5px 12px;
+  border: none;
+  background-color: rgb(9, 153, 28);
+  border-radius: 5px;
+  color: white;
+  letter-spacing: 0.5px;
+  box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.39);
+  transition: 0.3s;
+}
+
+.payinput-wrapper button:hover {
+  background: transparent;
+  background-color: black;
+  translate: 5px;
+  cursor: pointer;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-container label {
+  font-size: 1rem;
+  padding: 5px;
+  color: rgb(87, 87, 87);
+}
+
+.input-container input {
+  width: 175px;
+  height: 25px;
+  border-radius: 0px;
+  background-color: white;
+  border: solid 1px rgb(94, 94, 94);
+}
+
+.payresults-wrapper {
+  display: flex;
+  column-gap: 40px;
+  height: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 25px;
+}
+
+.inspayments-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  padding: 15px;
+  border: solid 3px rgb(238, 238, 238);
+  background-color: rgb(255, 255, 255);
+  border-radius: 35px;
+}
+
+.inslist-wrapper {
+  height: 300px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.patpayments-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  padding: 15px;
+  border: solid 3px rgb(238, 238, 238);
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border-radius: 35px;
+}
+
+.patlist-wrapper {
+  height: 300px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.payment-span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 5px;
+  animation-name: entryInput;
+  animation-duration: 0.7s;
+}
+
+.payment-span button {
+  background-color: transparent;
+  border: none;
+  padding: 3px 3px 4px 4px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.payment-span button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.199);
+}
+
+.clear-button {
+  margin-top: auto;
+  padding: 10px;
+  background: linear-gradient(
+    90deg,
+    rgb(33, 137, 255) 0%,
+    rgb(59, 42, 214) 100%
+  );
+  color: white;
+  border: none;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.clear-button:hover {
+  background: transparent;
+  background-color: black;
+  color: white;
+  translate: 0px -5px;
+  cursor: pointer;
+}
+
+.ctp-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  border: solid 3px rgb(238, 238, 238);
+  background-color: rgb(255, 255, 255);
+  padding: 15px;
+  border-radius: 35px;
+  color: black;
+}
+
+.ctp-wrapper label {
+  color: rgb(87, 87, 87);
+}
+
+@keyframes entryInput {
+  from {
+    background-color: rgba(94, 255, 121, 0.5);
+  }
+  to {
+    background-color: transparent;
+  }
+}
