@@ -5,7 +5,27 @@ const pricingTable = [
   { id: 0, equipment: "Custom", rentalPrice: 0, purchasePrice: 0 },
   { id: 1, equipment: "CPAP", rentalPrice: 150, purchasePrice: 995 },
   { id: 2, equipment: "Hospital Bed", rentalPrice: 150, purchasePrice: 1100 },
-  { id: 3, equipment: "K1 Wheelchair", rentalPrice: 50, purchasePrice: 295 },
+  {
+    id: 3,
+    equipment: "K1,K2,K3,K6 Wheelchair",
+    rentalPrice: 50,
+    purchasePrice: 295,
+  },
+  { id: 4, equipment: "K7 Wheelchair", rentalPrice: 95, purchasePrice: 595 },
+  { id: 5, equipment: "Hoyer Lift", rentalPrice: 100, purchasePrice: 795 },
+  { id: 6, equipment: "Hoyer Lift", rentalPrice: 100, purchasePrice: 795 },
+  { id: 7, equipment: "BIPAP", rentalPrice: 300, purchasePrice: 1950 },
+  { id: 8, equipment: "BIPAP ST", rentalPrice: 500, purchasePrice: 3300 },
+  { id: 9, equipment: "BIPAP ASV", rentalPrice: 500, purchasePrice: 4360 },
+  { id: 10, equipment: "Nebulizer", rentalPrice: 15, purchasePrice: 75 },
+  { id: 11, equipment: "Joey Pump", rentalPrice: 150, purchasePrice: 1100 },
+  { id: 12, equipment: "Pulse Oximeter", rentalPrice: 95, purchasePrice: 1400 },
+  {
+    id: 13,
+    equipment: "Trilogy Ventilator",
+    rentalPrice: 1800,
+    purchasePrice: 14000,
+  },
 ];
 
 const App = () => {
@@ -346,8 +366,6 @@ const CTPResults = ({
     for (let i = 0; i < payments.length; i++) {
       sum += Number(payments[i].payment);
     }
-    console.log(sum);
-    console.log(selEquip.equipment);
     return sum;
   };
 
