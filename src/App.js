@@ -5,7 +5,7 @@ const pricingTable = [
   { id: 0, equipment: "Custom", rentalPrice: 0, purchasePrice: 0 },
   { id: 1, equipment: "CPAP", rentalPrice: 150, purchasePrice: 995 },
   { id: 2, equipment: "Hospital Bed", rentalPrice: 150, purchasePrice: 1100 },
-  { id: 3, equipment: "K1 Wheelchair", rentalPrice: 150, purchasePrice: 295 },
+  { id: 3, equipment: "K1 Wheelchair", rentalPrice: 50, purchasePrice: 295 },
 ];
 
 const App = () => {
@@ -115,6 +115,15 @@ const CustomEquipment = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (parseInt(customRP) === 0 || parseInt(customPP) === 0) {
+      alert("Custom rental rate and custom purchase price can not be 0");
+      return;
+    }
+    if (customName === "") {
+      alert("You must enter a name for the equipment");
+      return;
+    }
+
     const customEquip = {
       id: equipment[equipment.length - 1].id + 1,
       equipment: customName,
@@ -123,6 +132,10 @@ const CustomEquipment = ({
     };
 
     onAddEquipment(customEquip);
+
+    setCustomName("");
+    setCustomPP("");
+    setCustomRP("");
   };
   return (
     <form onSubmit={handleSubmit} className="cequipment-form">
@@ -328,18 +341,25 @@ const CTPResults = ({
   selEquip,
   patientPayments,
 }) => {
+  const calculatePayments = (payments) => {
+    let sum = 0;
+    for (let i = 0; i < payments.length; i++) {
+      sum += Number(payments[i].payment);
+    }
+    console.log(sum);
+    console.log(selEquip.equipment);
+    return sum;
+  };
+
   let equipmentPurchasePrice =
-    selEquip === "custom" ? customPP : selEquip.purchasePrice;
+    selEquip.equipment === "Custom" ? customPP : selEquip.purchasePrice;
   let equipmentRentalPrice =
-    selEquip === "custom" ? customRP : selEquip.rentalPrice;
+    selEquip.equipment === "Custom" ? customRP : selEquip.rentalPrice;
+
   const calculatedPrice =
     equipmentPurchasePrice -
-    (insurancePayments.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.payment;
-    }, 0) +
-      patientPayments.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.payment;
-      }, 0));
+    (calculatePayments(insurancePayments) + calculatePayments(patientPayments));
+
   const calculatedRentalRate =
     calculatedPrice / 3 < equipmentRentalPrice
       ? calculatedPrice / 3
@@ -352,7 +372,7 @@ const CTPResults = ({
         type="text"
         disabled
         value={
-          calculatedRentalRate < 0 ? "Paid to purchase" : calculatedRentalRate
+          calculatedRentalRate <= 0 ? "Paid to purchase" : calculatedRentalRate
         }
       ></input>
       <label>Month 2 cost:</label>
@@ -360,7 +380,7 @@ const CTPResults = ({
         type="text"
         disabled
         value={
-          calculatedRentalRate < 0 ? "Paid to purchase" : calculatedRentalRate
+          calculatedRentalRate <= 0 ? "Paid to purchase" : calculatedRentalRate
         }
       ></input>
       <label>Month 3 cost:</label>
@@ -368,7 +388,7 @@ const CTPResults = ({
         type="text"
         disabled
         value={
-          calculatedRentalRate < 0 ? "Paid to purchase" : calculatedRentalRate
+          calculatedRentalRate <= 0 ? "Paid to purchase" : calculatedRentalRate
         }
       ></input>
       <label>Convert to purchase price:</label>
@@ -376,7 +396,9 @@ const CTPResults = ({
         type="text"
         disabled
         value={
-          calculatedPrice / 3 > customRP ? calculatedPrice - customRP * 3 : 0
+          calculatedPrice - calculatedRentalRate * 3 <= 0
+            ? "Paid to purchase"
+            : calculatedPrice - calculatedRentalRate * 3
         }
       ></input>
     </div>
