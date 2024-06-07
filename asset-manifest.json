@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/02-CTPCALC/static/css/main.25396ece.css",
-    "main.js": "/02-CTPCALC/static/js/main.37a32482.js",
-    "index.html": "/02-CTPCALC/index.html",
-    "main.25396ece.css.map": "/02-CTPCALC/static/css/main.25396ece.css.map",
-    "main.37a32482.js.map": "/02-CTPCALC/static/js/main.37a32482.js.map"
+    "main.css": "/ReactCTPCalculator/static/css/main.25396ece.css",
+    "main.js": "/ReactCTPCalculator/static/js/main.37a32482.js",
+    "index.html": "/ReactCTPCalculator/index.html",
+    "main.25396ece.css.map": "/ReactCTPCalculator/static/css/main.25396ece.css.map",
+    "main.37a32482.js.map": "/ReactCTPCalculator/static/js/main.37a32482.js.map"
   },
   "entrypoints": [
     "static/css/main.25396ece.css",
