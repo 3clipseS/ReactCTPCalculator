@@ -26,6 +26,12 @@ const pricingTable = [
     rentalPrice: 1800,
     purchasePrice: 14000,
   },
+  {
+    id: 14,
+    equipment: "Knee Walker",
+    rentalPrice: 95,
+    purchasePrice: 325,
+  },
 ];
 
 const App = () => {
