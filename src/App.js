@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles.css";
 
 const pricingTable = [
@@ -48,6 +48,21 @@ const pricingTable = [
 const App = () => {
   const [pricing, setPricing] = useState(pricingTable);
 
+  useEffect(() => {
+    const storedEquipment = localStorage.getItem("customEquipment");
+    if (storedEquipment) {
+      const customEquipment = JSON.parse(storedEquipment);
+
+      setPricing((prevPricing) => {
+        const existingIds = new Set(prevPricing.map((item) => item.id));
+        const nonDuplicateCustomEquipment = customEquipment.filter(
+          (item) => !existingIds.has(item.id)
+        );
+        return [...prevPricing, ...nonDuplicateCustomEquipment];
+      });
+    }
+  }, []);
+
   const [selectedEquip, setSelectedEquip] = useState({
     id: 1,
     equipment: "CPAP",
@@ -63,8 +78,16 @@ const App = () => {
   const [patientPayments, setPatientPayments] = useState([]);
 
   const handleAddPricing = (newEquipment) => {
-    setPricing((pricingTable) => [...pricingTable, newEquipment]);
+    setPricing((prevPricing) => {
+      const updatedPricing = [...prevPricing, newEquipment];
+
+      const customEquipment = updatedPricing.filter((item) => item.id > 15);
+      localStorage.setItem("customEquipment", JSON.stringify(customEquipment));
+
+      return updatedPricing;
+    });
   };
+
   return (
     <div className="app">
       <div className="main-wrapper">
@@ -74,6 +97,7 @@ const App = () => {
             selEquip={selectedEquip}
             onSelEquip={setSelectedEquip}
             equipment={pricing}
+            setPricing={setPricing}
           />
           <CustomEquipment
             selEquip={selectedEquip}
@@ -117,9 +141,20 @@ const Header = () => {
   );
 };
 
-const EquipmentSelection = ({ selEquip, onSelEquip, equipment }) => {
+const EquipmentSelection = ({
+  selEquip,
+  onSelEquip,
+  equipment,
+  setPricing,
+}) => {
   const handleSelectionChange = (e) => {
     onSelEquip(equipment.find((item) => item.equipment === e.target.value));
+  };
+
+  const clearCustomEquipment = () => {
+    setPricing((prevPricing) => prevPricing.filter((item) => item.id <= 15));
+
+    localStorage.removeItem("customEquipment");
   };
 
   return (
@@ -133,6 +168,9 @@ const EquipmentSelection = ({ selEquip, onSelEquip, equipment }) => {
             </option>
           ))}
         </select>
+        <button className="clear-button" onClick={clearCustomEquipment}>
+          Clear Custom Equipment
+        </button>
       </div>
     </>
   );
@@ -266,6 +304,16 @@ const InsurancePayments = ({ insurancePayments, setInsurancePayments }) => {
     setInsurancePayments([]);
   };
 
+  const calculateIndividualPayments = (payments) => {
+    for (let i = 0; i < payments.length; i++) {
+      let sum = 0;
+      for (let i = 0; i < payments.length; i++) {
+        sum += Number(payments[i].payment);
+      }
+      return sum;
+    }
+  };
+
   return (
     <div className="inspayments-wrapper">
       <h3>Insurance Payments</h3>
@@ -293,6 +341,12 @@ const InsurancePayments = ({ insurancePayments, setInsurancePayments }) => {
           />
         ))}
       </div>
+      <p>
+        Total Insurance Payments:{" "}
+        {insurancePayments.length !== 0
+          ? calculateIndividualPayments(insurancePayments)
+          : 0}
+      </p>
       <button
         className="clear-button"
         onClick={() => handleClearInsurancePayments()}
@@ -325,6 +379,17 @@ const PatientPayments = ({ patientPayments, setPatientPayments }) => {
   const handleClearPatientPayments = () => {
     setPatientPayments([]);
   };
+
+  const calculateIndividualPayments = (payments) => {
+    for (let i = 0; i < payments.length; i++) {
+      let sum = 0;
+      for (let i = 0; i < payments.length; i++) {
+        sum += Number(payments[i].payment);
+      }
+      return sum;
+    }
+  };
+
   return (
     <div className="patpayments-wrapper">
       <h3>Patient Payments</h3>
@@ -352,6 +417,12 @@ const PatientPayments = ({ patientPayments, setPatientPayments }) => {
           />
         ))}
       </div>
+      <p>
+        Total Patient Payments:{" "}
+        {patientPayments.length !== 0
+          ? calculateIndividualPayments(patientPayments)
+          : 0}
+      </p>
       <button
         className="clear-button"
         onClick={() => handleClearPatientPayments()}
@@ -402,6 +473,15 @@ const CTPResults = ({
   return (
     <div className="ctp-wrapper">
       <h3>Convert to Purchase details</h3>
+      <label>Total amount paid:</label>
+      <input
+        type="text"
+        disabled
+        value={
+          calculatePayments(insurancePayments) +
+          calculatePayments(patientPayments)
+        }
+      ></input>
       <label>Month 1 cost:</label>
       <input
         type="text"
