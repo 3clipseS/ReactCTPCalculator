@@ -12,7 +12,7 @@ const pricingTable = [
   },
   {
     id: 3,
-    equipment: "Fully Electric Hospital Bed",
+    equipment: "Full Electric Hospital Bed",
     rentalPrice: 110,
     purchasePrice: 1300,
   },
