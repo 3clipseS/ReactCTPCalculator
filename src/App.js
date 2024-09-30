@@ -24,7 +24,7 @@ const pricingTable = [
   },
   { id: 5, equipment: "K7 Wheelchair", rentalPrice: 95, purchasePrice: 595 },
   { id: 6, equipment: "Hoyer Lift", rentalPrice: 100, purchasePrice: 795 },
-  { id: 7, equipment: "Hoyer Lift", rentalPrice: 100, purchasePrice: 795 },
+  { id: 7, equipment: "Trapeze Bar", rentalPrice: 60, purchasePrice: 195 },
   { id: 8, equipment: "BIPAP", rentalPrice: 300, purchasePrice: 1950 },
   { id: 9, equipment: "BIPAP ST", rentalPrice: 500, purchasePrice: 3300 },
   { id: 10, equipment: "BIPAP ASV", rentalPrice: 500, purchasePrice: 4360 },
